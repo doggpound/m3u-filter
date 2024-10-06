@@ -2,7 +2,7 @@
 FROM rust:bookworm as rust-build
 
 RUN apt-get update && \
-	apt-get install pkg-config musl-tools libssl-dev rust-coreutils
+	apt-get install pkg-config musl-tools libssl-dev
 
 RUN rustup update
 ENV RUSTFLAGS='--remap-path-prefix $HOME=~ -C target-feature=+crt-static'
@@ -31,7 +31,7 @@ RUN yarn build
 RUN rm -rf node_modules
 
 # Final container
-FROM scratch
+FROM alpine:latest
 WORKDIR /
 
 COPY --from=rust-build /usr/share/zoneinfo /usr/share/zoneinfo

@@ -2,7 +2,7 @@
 FROM rust:bookworm as rust-build
 
 RUN apt-get update && \
-	apt-get install pkg-config musl-tools libssl-dev
+	apt-get install pkg-config musl-tools libssl-dev rust-coreutils
 
 RUN rustup update
 ENV RUSTFLAGS='--remap-path-prefix $HOME=~ -C target-feature=+crt-static'
